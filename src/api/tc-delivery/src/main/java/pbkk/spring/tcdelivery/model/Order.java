@@ -6,6 +6,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -20,13 +21,13 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-	// @NotBlank
+	@NotBlank
     private String detail;
 
-    // @NotBlank
+    @NotNull(message = "Please enter price")
     private Integer price;
     
-   /* @NotBlank */ 
+    @NotNull(message = "Please enter status") 
     private Boolean status;
 
   
