@@ -20,13 +20,13 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-	@NotBlank
+	// @NotBlank
     private String detail;
 
-    @NotBlank
+    // @NotBlank
     private Integer price;
     
-    @NotBlank
+   /* @NotBlank */ 
     private Boolean status;
 
   
@@ -40,6 +40,18 @@ public class Order implements Serializable {
     @LastModifiedDate
     private Date updatedAt;
 
+    public Order() {
+    	super();
+    }
+    
+    public Order(Long id, String detail, Integer price, Boolean status) {
+    	super();
+    	this.id = id;
+    	this.detail = detail;
+    	this.price = price;
+    	this.status = status;
+    }
+    
     // Getters and Setters ...
     public Boolean getStatus() {
 		return status;
