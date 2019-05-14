@@ -6,63 +6,47 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "k_order")
+@Table(name = "kitchen_order")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, 
         allowGetters = true)
 public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "o_id")
     private Long id;
 
 	@NotBlank
+	@Column(name = "o_detail")
     private String detail;
 
-    @NotNull(message = "Please enter price")
+	@Column(nullable = false,name = "o_price")
     private Integer price;
     
-    @NotNull(message = "Please enter status") 
-    private Boolean status;
+    @Column(nullable = false,name = "s_id")
+    private Integer s_id;
 
   
-	@Column(nullable = false, updatable = false)
+	@Column(nullable = false, updatable = false, name = "o_created_at")
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
     private Date createdAt;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "o_updated_at")
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     private Date updatedAt;
 
-    public Order() {
-    	super();
-    }
     
-    public Order(Long id, String detail, Integer price, Boolean status) {
-    	super();
-    	this.id = id;
-    	this.detail = detail;
-    	this.price = price;
-    	this.status = status;
-    }
-    
-    // Getters and Setters ...
-    public Boolean getStatus() {
-		return status;
-	}
+   
 
-	public void setStatus(Boolean status) {
-		this.status = status;
-	}
-	
-	public Long getId() {
+	// Getters and Setters ...
+    public Long getId() {
 		return id;
 	}
 
@@ -86,6 +70,14 @@ public class Order implements Serializable {
 		this.price = price;
 	}
 
+	public Integer getS_id() {
+		return s_id;
+	}
+
+	public void setS_id(Integer s_id) {
+		this.s_id = s_id;
+	}
+
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -101,5 +93,5 @@ public class Order implements Serializable {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-
+	
 }
