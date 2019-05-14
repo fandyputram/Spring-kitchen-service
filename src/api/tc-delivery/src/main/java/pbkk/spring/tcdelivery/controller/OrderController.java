@@ -7,6 +7,7 @@ import pbkk.spring.tcdelivery.repository.OrderRepository;
 import pbkk.spring.tcdelivery.repository.StatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
@@ -19,6 +20,7 @@ public class OrderController {
 
     @Autowired
     OrderRepository orderRepository;
+    
     @Autowired
     StatusRepository statusRepository;
 
@@ -33,11 +35,25 @@ public class OrderController {
         return orderRepository.save(order);
     }
 
+    // Create a new status
+    @PostMapping("/status")
+    public Status createStatus(@Valid @RequestBody Status status) {
+        return statusRepository.save(status);
+    }
+    
     // Get a Single order
     @GetMapping("/order/{id}")
     public Order getOrderById(@PathVariable(value = "id") Long orderId) {
         return orderRepository.findById(orderId)
                 .orElseThrow(() -> new ResourceNotFoundException("Order", "id", orderId));
+    }
+    
+    // Get status from order
+    @GetMapping("/order/{id}/status")
+    public Status getStatByOrder(@PathVariable(value = "id") Long orderId) {
+    	Order order = orderRepository.findById(orderId)
+    			.orElseThrow(() -> new ResourceNotFoundException("Order", "id", orderId));
+    	return order.getStatus();
     }
 
     // Update a order
@@ -48,7 +64,7 @@ public class OrderController {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new ResourceNotFoundException("Order", "id", orderId));
 
-        order.setS_id(orderDetails.getS_id());
+        order.setStatus(orderDetails.getStatus());
         
         Order updatedOrder = orderRepository.save(order);
         return updatedOrder;
