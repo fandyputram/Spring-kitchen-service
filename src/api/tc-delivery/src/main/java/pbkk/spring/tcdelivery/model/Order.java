@@ -1,5 +1,6 @@
 package pbkk.spring.tcdelivery.model;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -7,7 +8,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -24,13 +24,20 @@ public class Order implements Serializable {
 	@NotBlank
     private String detail;
 
-    @NotNull(message = "Please enter price")
-    private Integer price;
+    private Integer totalPrice;
     
     @NotNull(message = "Please enter status") 
-    private Boolean status;
-
+    @ManyToOne 
+    private Status status;
+    
+    @NotNull(message = "Please enter user")
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private User user;
   
+    @OneToMany(mappedBy = "order")
+    Set <MenuDetails> menuDetails;
+    
 	@Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
@@ -45,20 +52,19 @@ public class Order implements Serializable {
     	super();
     }
     
-    public Order(Long id, String detail, Integer price, Boolean status) {
+    public Order(Long id, String detail, int totalPrice) {
     	super();
     	this.id = id;
     	this.detail = detail;
-    	this.price = price;
-    	this.status = status;
+    	this.totalPrice = totalPrice;
     }
     
     // Getters and Setters ...
-    public Boolean getStatus() {
+    public Status getStatus() {
 		return status;
 	}
 
-	public void setStatus(Boolean status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 	
@@ -78,12 +84,20 @@ public class Order implements Serializable {
 		this.detail = detail;
 	}
 
-	public Integer getPrice() {
-		return price;
+	public Integer getTotalPrice() {
+		return totalPrice;
 	}
 
-	public void setPrice(Integer price) {
-		this.price = price;
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+	
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public Date getCreatedAt() {
