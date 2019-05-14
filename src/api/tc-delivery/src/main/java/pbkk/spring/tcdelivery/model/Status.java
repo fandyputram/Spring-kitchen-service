@@ -16,11 +16,9 @@ public class Status implements Serializable {
     @Column(name = "s_id")
     private Long id;
     
-
 	@NotBlank
 	@Column(name = "s_detail")
     private String detail;
-    
 
 	// Getters and Setters ...
 	public Long getId() {

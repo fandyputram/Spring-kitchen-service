@@ -28,8 +28,10 @@ public class Order implements Serializable {
 	@Column(nullable = false,name = "o_price")
     private Integer price;
     
-    @Column(nullable = false,name = "s_id")
-    private Integer s_id;
+	
+    @ManyToOne
+    @JoinColumn(nullable = false,name = "s_id")
+    private Status status;
 
   
 	@Column(nullable = false, updatable = false, name = "o_created_at")
@@ -41,10 +43,7 @@ public class Order implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     private Date updatedAt;
-
-    
    
-
 	// Getters and Setters ...
     public Long getId() {
 		return id;
@@ -70,12 +69,12 @@ public class Order implements Serializable {
 		this.price = price;
 	}
 
-	public Integer getS_id() {
-		return s_id;
+	public Status getStatus() {
+		return status;
 	}
 
-	public void setS_id(Integer s_id) {
-		this.s_id = s_id;
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
 	public Date getCreatedAt() {
