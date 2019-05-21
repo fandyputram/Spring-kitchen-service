@@ -9,18 +9,12 @@
 End Point
 ---
 ### Order
-| Method |  End Point  |       Parameter       |      Description     |
-|:------:|:-----------:|:---------------------:|:--------------------:|
-|  POST  |    /order   | detail, price, status |   Create new Order   |
-|   GET  |    /order   |           -           |    Get all Orders    |
-|   GET  | /order/{id} |           -           |   Get Order detail   |
-|   PUT  | /order/{id} |         status        |  Update Order status |
-|        |             |                       |                      |
-|        |             |                       |                      |
-
----
-### Status
-| Method |  End Point  |       Parameter       |      Description     |
-|:------:|:-----------:|:---------------------:|:--------------------:|
-|   GET  |   /status   |           -           | Get available status |
-|        |             |                       |                      |
+| Method |      End Point     |       Parameter       |       Description      |
+|:------:|:------------------:|:---------------------:|:----------------------:|
+|  POST  |       /order       | detail, price, status |    Create new Order    |
+|   GET  |       /order       |           -           |     Get all Orders     |
+|   GET  |     /order/{id}    |           -           | Get Order detail by id |
+|   GET  | /order/{id}/status |           -           |    Get Order status    |
+|   PUT  |     /order/{id}    |         status        |   Update Order status  |
+|   GET  |       /status      |           -           |  Get available status  |
+|   GET  |    /status/{id}    |           -           |    Get status by id    |
