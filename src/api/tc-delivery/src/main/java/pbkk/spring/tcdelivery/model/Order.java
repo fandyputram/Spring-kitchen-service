@@ -21,7 +21,6 @@ public class Order implements Serializable {
     @Column(name = "o_id")
     private Long id;
 
-	@NotBlank
 	@Column(name = "o_detail")
     private String detail;
 
